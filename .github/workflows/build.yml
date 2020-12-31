@@ -19,11 +19,15 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - run: yarn install --frozen-lockfile
+      - run: yarn test
       - run: yarn build
       - run: yarn package
 
       # Test built action itself
       - uses: ./dist/
+        with:
+          geckodriver-version: "0.28.0"
+      - run: geckodriver --version
 
   deploy:
     runs-on: ubuntu-latest
@@ -76,3 +80,6 @@ jobs:
     needs: [deploy]
     steps:
       - uses: ueokande/setup-geckodriver@latest
+        with:
+          geckodriver-version: "0.28.0"
+      - run: geckodriver --version
