@@ -4955,7 +4955,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.LinuxInstaller = exports.UnsupportedPlatformError = void 0;
+exports.MacOSInstaller = exports.LinuxInstaller = exports.UnsupportedPlatformError = void 0;
 const tc = __importStar(__webpack_require__(784));
 const platform_1 = __webpack_require__(999);
 class UnsupportedPlatformError extends Error {
@@ -4984,6 +4984,19 @@ class LinuxInstaller {
     }
 }
 exports.LinuxInstaller = LinuxInstaller;
+class MacOSInstaller {
+    getURL(version, platform) {
+        switch (platform.arch) {
+            case platform_1.Arch.AMD64:
+                return `https://github.com/mozilla/geckodriver/releases/download/v${version}/geckodriver-v${version}-macos.tar.gz`;
+        }
+        throw new UnsupportedPlatformError(platform, version);
+    }
+    extract(archive) {
+        return tc.extractTar(archive);
+    }
+}
+exports.MacOSInstaller = MacOSInstaller;
 
 
 /***/ }),
@@ -5001,6 +5014,8 @@ class InstallerFactory {
         switch (platform.os) {
             case platform_1.OS.LINUX:
                 return new Installer_1.LinuxInstaller();
+            case platform_1.OS.MACOS:
+                return new Installer_1.MacOSInstaller();
         }
         throw new Installer_1.UnsupportedPlatformError(platform);
     }
