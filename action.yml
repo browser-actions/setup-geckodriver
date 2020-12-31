@@ -3,7 +3,7 @@ description: 'Install and setup a specific version of Geckodriver'
 author: "Shin'ya Ueoka"
 inputs:
   geckodriver-version:
-    description: 'The Geckodriver version to install and use.'
+    description: 'The Geckodriver version to install and use. Examples: 0.28.0, latest.'
 
 runs:
   using: 'node12'
