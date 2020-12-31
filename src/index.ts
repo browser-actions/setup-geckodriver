@@ -21,7 +21,7 @@ const getLatestVersion = async (): Promise<string> => {
   if (resp.result === null) {
     throw new Error("Failed to get latest version: server returns empty body");
   }
-  return resp.result.tag_name.replace("^v", "");
+  return resp.result.tag_name.replace(/^v/, "");
 };
 
 const install = async (
