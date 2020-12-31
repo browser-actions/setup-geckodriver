@@ -1,0 +1,10 @@
+name: 'Setup Geckodriver'
+description: 'Install and setup a specific version of Geckodriver'
+author: "Shin'ya Ueoka"
+inputs:
+  geckodriver-version:
+    description: 'The Geckodriver version to install and use.'
+
+runs:
+  using: 'node12'
+  main: 'index.js'
