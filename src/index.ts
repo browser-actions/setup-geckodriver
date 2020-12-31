@@ -1,8 +1,28 @@
 import * as core from "@actions/core";
 import * as exec from "@actions/exec";
 import * as tc from "@actions/tool-cache";
+import * as httpm from "@actions/http-client";
 import { getPlatform, Platform } from "./platform";
 import InstallerFactory from "./InstallerFactory";
+
+type GitHubReleaseApiResponse = {
+  tag_name: string;
+};
+
+const getLatestVersion = async (): Promise<string> => {
+  const apiURL = `https://api.github.com/repos/mozilla/geckodriver/releases/latest`;
+  const http = new httpm.HttpClient("setup-geckodrive");
+  const resp = await http.getJson<GitHubReleaseApiResponse>(apiURL);
+  if (resp.statusCode !== httpm.HttpCodes.OK) {
+    throw new Error(
+      `Failed to get latest version: server returns ${resp.statusCode}`
+    );
+  }
+  if (resp.result === null) {
+    throw new Error("Failed to get latest version: server returns empty body");
+  }
+  return resp.result.tag_name.replace(/^v/, "");
+};
 
 const install = async (
   version: string,
@@ -30,8 +50,11 @@ const install = async (
 
 const run = async (): Promise<void> => {
   try {
-    const version = core.getInput("geckodriver-version") || "latest";
+    let version = core.getInput("geckodriver-version") || "latest";
     const platform = getPlatform();
+    if (version === "latest") {
+      version = await getLatestVersion();
+    }
 
     core.info(`Setup geckodriver ${version}`);
 

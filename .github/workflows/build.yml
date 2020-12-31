@@ -1,6 +1,5 @@
 name: 'build-test'
 on:
-  pull_request:
   push:
 
 jobs:
@@ -29,7 +28,9 @@ jobs:
       # Test built action itself
       - uses: ./dist/
         with:
-          geckodriver-version: "0.28.0"
+          geckodriver-version: "0.26.0"
+      - run: geckodriver --version
+      - uses: ./dist/
       - run: geckodriver --version
 
   deploy:
@@ -87,5 +88,7 @@ jobs:
     steps:
       - uses: ueokande/setup-geckodriver@latest
         with:
-          geckodriver-version: "0.28.0"
+          geckodriver-version: "0.26.0"
+      - run: geckodriver --version
+      - uses: ueokande/setup-geckodriver@latest
       - run: geckodriver --version
