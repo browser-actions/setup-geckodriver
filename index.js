@@ -5081,8 +5081,21 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__webpack_require__(186));
 const exec = __importStar(__webpack_require__(514));
 const tc = __importStar(__webpack_require__(784));
+const httpm = __importStar(__webpack_require__(925));
 const platform_1 = __webpack_require__(999);
 const InstallerFactory_1 = __importDefault(__webpack_require__(892));
+const getLatestVersion = () => __awaiter(void 0, void 0, void 0, function* () {
+    const apiURL = `https://api.github.com/repos/mozilla/geckodriver/releases/latest`;
+    const http = new httpm.HttpClient("setup-geckodrive");
+    const resp = yield http.getJson(apiURL);
+    if (resp.statusCode !== httpm.HttpCodes.OK) {
+        throw new Error(`Failed to get latest version: server returns ${resp.statusCode}`);
+    }
+    if (resp.result === null) {
+        throw new Error("Failed to get latest version: server returns empty body");
+    }
+    return resp.result.tag_name.replace(/^v/, "");
+});
 const install = (version, platform) => __awaiter(void 0, void 0, void 0, function* () {
     const toolPath = tc.find("geckodriver", version);
     if (toolPath) {
@@ -5101,8 +5114,11 @@ const install = (version, platform) => __awaiter(void 0, void 0, void 0, functio
 });
 const run = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const version = core.getInput("geckodriver-version") || "latest";
+        let version = core.getInput("geckodriver-version") || "latest";
         const platform = platform_1.getPlatform();
+        if (version === "latest") {
+            version = yield getLatestVersion();
+        }
         core.info(`Setup geckodriver ${version}`);
         const toolPath = yield install(version, platform);
         core.addPath(toolPath);
