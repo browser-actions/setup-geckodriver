@@ -25,6 +25,8 @@ jobs:
 
       # Test built action itself
       - uses: ./dist/
+        with:
+          geckodriver-version: "0.28.0"
 
   deploy:
     runs-on: ubuntu-latest
@@ -77,3 +79,5 @@ jobs:
     needs: [deploy]
     steps:
       - uses: ueokande/setup-geckodriver@latest
+        with:
+          geckodriver-version: "0.28.0"
