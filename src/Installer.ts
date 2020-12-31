@@ -50,3 +50,19 @@ export class MacOSInstaller implements Installer {
     return tc.extractTar(archive);
   }
 }
+
+export class WindowsInstaller implements Installer {
+  getURL(version: string, platform: Platform): string {
+    switch (platform.arch) {
+      case Arch.I686:
+        return `https://github.com/mozilla/geckodriver/releases/download/v${version}/geckodriver-v${version}-win32.zip`;
+      case Arch.AMD64:
+        return `https://github.com/mozilla/geckodriver/releases/download/v${version}/geckodriver-v${version}-win64.zip`;
+    }
+    throw new UnsupportedPlatformError(platform, version);
+  }
+
+  extract(archive: string): Promise<string> {
+    return tc.extractTar(archive);
+  }
+}
