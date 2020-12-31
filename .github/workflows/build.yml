@@ -27,6 +27,7 @@ jobs:
       - uses: ./dist/
         with:
           geckodriver-version: "0.28.0"
+      - run: geckodriver --version
 
   deploy:
     runs-on: ubuntu-latest
@@ -81,3 +82,4 @@ jobs:
       - uses: ueokande/setup-geckodriver@latest
         with:
           geckodriver-version: "0.28.0"
+      - run: geckodriver --version
