@@ -36,3 +36,17 @@ export class LinuxInstaller implements Installer {
     return tc.extractTar(archive);
   }
 }
+
+export class MacOSInstaller implements Installer {
+  getURL(version: string, platform: Platform): string {
+    switch (platform.arch) {
+      case Arch.AMD64:
+        return `https://github.com/mozilla/geckodriver/releases/download/v${version}/geckodriver-v${version}-macos.tar.gz`;
+    }
+    throw new UnsupportedPlatformError(platform, version);
+  }
+
+  extract(archive: string): Promise<string> {
+    return tc.extractTar(archive);
+  }
+}
