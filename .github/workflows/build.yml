@@ -86,9 +86,9 @@ jobs:
     runs-on: ${{ matrix.os }}-latest
     needs: [deploy]
     steps:
-      - uses: ueokande/setup-geckodriver@latest
+      - uses: browser-actions/setup-geckodriver@latest
         with:
           geckodriver-version: "0.26.0"
       - run: geckodriver --version
-      - uses: ueokande/setup-geckodriver@latest
+      - uses: browser-actions/setup-geckodriver@latest
       - run: geckodriver --version

@@ -34,7 +34,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ueokande/setup-geckodriver.git"
+    "url": "git+https://github.com/browser-actions/setup-geckodriver.git"
   },
   "keywords": [
     "actions",
@@ -45,7 +45,7 @@
   "author": "Shin'ya Ueoka",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ueokande/setup-geckodriver/issues"
+    "url": "https://github.com/browser-actions/setup-geckodriver/issues"
   },
-  "homepage": "https://github.com/ueokande/setup-geckodriver#readme"
+  "homepage": "https://github.com/browser-actions/setup-geckodriver#readme"
 }
