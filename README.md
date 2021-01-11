@@ -1,6 +1,4 @@
-<p>
-  <a href="https://github.com/ueokande/setup-geckodriver/actions"><img alt="typescript-action status" src="https://github.com/ueokande/setup-geckodriver/workflows/build-test/badge.svg"></a>
-</p>
+![build-test](https://github.com/browser-actions/setup-geckodriver/workflows/build-test/badge.svg)
 
 # setup-geckodriver
 
@@ -16,7 +14,7 @@ Basic usage:
 
 ```yaml
 steps:
-  - uses: ueokande/setup-geckodriver@latest
+  - uses: browser-actions/setup-geckodriver@latest
   - run: geckodriver --version
 ```
 
