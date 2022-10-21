@@ -29,8 +29,11 @@ jobs:
       - uses: ./dist/
         with:
           geckodriver-version: "0.26.0"
+          token: ${{ secrets.GITHUB_TOKEN }}
       - run: geckodriver --version
       - uses: ./dist/
+        with: 
+          token: ${{ secrets.GITHUB_TOKEN }}
       - run: geckodriver --version
 
   deploy:
@@ -89,6 +92,9 @@ jobs:
       - uses: browser-actions/setup-geckodriver@latest
         with:
           geckodriver-version: "0.26.0"
+          token: ${{ secrets.GITHUB_TOKEN }}
       - run: geckodriver --version
       - uses: browser-actions/setup-geckodriver@latest
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
       - run: geckodriver --version
