@@ -12,7 +12,11 @@ type GitHubReleaseApiResponse = {
 const getLatestVersion = async (): Promise<string> => {
   const apiURL = `https://api.github.com/repos/mozilla/geckodriver/releases/latest`;
   const http = new httpm.HttpClient("setup-geckodrive");
-  const resp = await http.getJson<GitHubReleaseApiResponse>(apiURL);
+  const additionalHeaders = {};
+  if (core.getInput("geckodriver-version")) {
+    additionalHeaders[httpm.Headers.Authorization] = 'Bearer ' + core.getInput("token"); 
+  }
+  const resp = await http.getJson<GitHubReleaseApiResponse>(apiURL, additionalHeaders);
   if (resp.statusCode !== httpm.HttpCodes.OK) {
     throw new Error(
       `Failed to get latest version: server returns ${resp.statusCode}`
