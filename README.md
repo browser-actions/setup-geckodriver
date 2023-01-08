@@ -17,9 +17,9 @@ Basic usage:
 ```yaml
 steps:
   - uses: browser-actions/setup-geckodriver@latest
-  - run: geckodriver --version
     with:
       token: ${{ secrets.GITHUB_TOKEN }}
+  - run: geckodriver --version
 ```
 
 ## License
