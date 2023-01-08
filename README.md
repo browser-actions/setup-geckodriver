@@ -8,7 +8,9 @@ This action sets by Geckodriver for use in actions by:
 
 ## Usage
 
-See [action.yml](action.yml)
+Valid inputs:
+* `geckodriver-version`: Specific version of geckodriver to use.
+* `token`: GitHub access token. Used to avoid rate limits.
 
 Basic usage:
 
@@ -16,6 +18,8 @@ Basic usage:
 steps:
   - uses: browser-actions/setup-geckodriver@latest
   - run: geckodriver --version
+    with:
+      token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ## License
