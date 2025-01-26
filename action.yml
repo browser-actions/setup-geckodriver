@@ -8,5 +8,5 @@ inputs:
     description: 'The GitHub token to use for requests to the GitHub API. Allows a higher rate limit.'
 
 runs:
-  using: 'node16'
+  using: 'node20'
   main: 'index.js'
