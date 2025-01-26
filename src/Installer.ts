@@ -42,6 +42,8 @@ export class MacOSInstaller implements Installer {
     switch (platform.arch) {
       case Arch.AMD64:
         return `https://github.com/mozilla/geckodriver/releases/download/v${version}/geckodriver-v${version}-macos.tar.gz`;
+      case Arch.ARM64:
+        return `https://github.com/mozilla/geckodriver/releases/download/v${version}/geckodriver-v${version}-macos-aarch64.tar.gz`;
     }
     throw new UnsupportedPlatformError(platform, version);
   }
