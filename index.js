@@ -4975,6 +4975,8 @@ class LinuxInstaller {
                 return `https://github.com/mozilla/geckodriver/releases/download/v${version}/geckodriver-v${version}-linux32.tar.gz`;
             case platform_1.Arch.AMD64:
                 return `https://github.com/mozilla/geckodriver/releases/download/v${version}/geckodriver-v${version}-linux64.tar.gz`;
+            case platform_1.Arch.ARM64:
+                return `https://github.com/mozilla/geckodriver/releases/download/v${version}/geckodriver-v${version}-linux-aarch64.tar.gz`;
         }
         throw new UnsupportedPlatformError(platform, version);
     }
