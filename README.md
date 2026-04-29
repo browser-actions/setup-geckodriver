@@ -22,6 +22,10 @@ steps:
   - run: geckodriver --version
 ```
 
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for development setup, workflow, and release process.
+
 ## License
 
 [MIT](LICENSE)
