@@ -1,3 +1,4 @@
+import { jest } from "@jest/globals";
 import os from "os";
 import { Arch, getArch } from "../src/platform";
 

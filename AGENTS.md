@@ -8,7 +8,7 @@ This file provides guidance for AI coding agents working in this repository.
 
 ## Commands
 
-> ⚠️ This repository uses an **older toolchain** (Jest + ESLint/Prettier + pnpm) compared to other browser-actions repos.
+This repository uses Jest, ESLint/Prettier, and pnpm. Node.js ≥ 24 is required.
 
 ```bash
 pnpm install --frozen-lockfile  # install dependencies
@@ -29,8 +29,9 @@ src/
   InstallerFactory.ts # factory that returns the right installer for the current platform
 __test__/
   InstallerFactory.test.ts  # Jest unit tests for installer factory
+  platform.test.ts          # Node.js architecture mapping regression test
 action.yml            # action metadata: inputs, outputs
-jest.config.js        # Jest configuration
+jest.config.cjs        # Jest configuration
 ```
 
 ## Architecture

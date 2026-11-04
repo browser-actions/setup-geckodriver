@@ -4,14 +4,15 @@
   "description": "Set up your GitHub Actions workflow with a specific version of geckodriver",
   "main": "dist/index.js",
   "dependencies": {
-    "@actions/core": "^1.2.6",
-    "@actions/exec": "1.0.4",
-    "@actions/http-client": "1.0.9",
-    "@actions/io": "^1.0.2",
-    "@actions/tool-cache": "^1.6.1"
+    "@actions/core": "^3.0.1",
+    "@actions/exec": "3.0.0",
+    "@actions/http-client": "4.0.1",
+    "@actions/io": "^3.0.2",
+    "@actions/tool-cache": "^4.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@jest/globals": "^30.5.2",
     "@types/jest": "^30.0.0",
     "@types/node": "^26.6.6",
     "@typescript-eslint/eslint-plugin": "^8.72.1",
@@ -30,8 +31,8 @@
   },
   "scripts": {
     "build": "ncc build src/index.ts",
-    "test": "jest",
-    "test:watch": "jest --watch",
+    "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js",
+    "test:watch": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js --watch",
     "package": "cp action.yml README.md dist/",
     "lint": "eslint --ext .ts src/ __test__/",
     "lint:fix": "eslint --fix --ext .ts src/ __test__/"
@@ -52,5 +53,9 @@
     "url": "https://github.com/browser-actions/setup-geckodriver/issues"
   },
   "homepage": "https://github.com/browser-actions/setup-geckodriver#readme",
-  "packageManager": "pnpm@10.34.9"
+  "packageManager": "pnpm@10.34.9",
+  "type": "module",
+  "engines": {
+    "node": ">=24.0.0"
+  }
 }

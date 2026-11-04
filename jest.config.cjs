@@ -1,5 +1,6 @@
 module.exports = {
   clearMocks: true,
+  extensionsToTreatAsEsm: [".ts"],
   moduleFileExtensions: ["js", "ts"],
   testEnvironment: "node",
   testMatch: ["**/*.test.ts"],
@@ -8,11 +9,7 @@ module.exports = {
     "^.+\\.ts$": [
       "ts-jest",
       {
-        tsconfig: {
-          module: "CommonJS",
-          moduleResolution: "Node",
-          ignoreDeprecations: "6.0",
-        },
+        useESM: true,
       },
     ],
   },
