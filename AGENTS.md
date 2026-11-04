@@ -56,3 +56,9 @@ Tests live in `__test__/` and use [Jest](https://jestjs.io/).
 - The `action.yml` `main` field points to `index.js` inside `dist/`, not the TypeScript source.
 
 > When switching test frameworks, do so as a dedicated chore commit rather than mixing it with feature or fix changes.
+
+## GitHub Actions lockfile
+
+Workflow dependencies are tracked in `.github/workflows/actions.lock`. After changing any workflow action reference, run `gh actions-lock` and commit the updated workflows and lockfile together. Install the CLI extension with `gh extension install github/gh-actions-lock --pin v0.4.1` if needed.
+
+Run `gh actions-lock --verify-local` for an offline coverage check and `gh actions-lock --verify` to verify upstream references. The verification workflow runs the upstream check on pushes and pull requests.
