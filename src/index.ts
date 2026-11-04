@@ -69,7 +69,7 @@ const run = async (): Promise<void> => {
 
     await exec.exec("geckodriver", ["--version"]);
   } catch (error) {
-    core.setFailed(error.message);
+    core.setFailed(error instanceof Error ? error.message : String(error));
   }
 };
 

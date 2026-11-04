@@ -41,7 +41,7 @@ export const getArch = (): Arch => {
   switch (arch) {
     case "arm64":
       return Arch.ARM64;
-    case "x32":
+    case "ia32":
       return Arch.I686;
     case "x64":
       return Arch.AMD64;
