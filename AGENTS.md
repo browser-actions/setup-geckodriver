@@ -8,15 +8,15 @@ This file provides guidance for AI coding agents working in this repository.
 
 ## Commands
 
-> ⚠️ This repository uses an **older toolchain** (Jest + ESLint/Prettier + yarn) compared to other browser-actions repos.
+> ⚠️ This repository uses an **older toolchain** (Jest + ESLint/Prettier + pnpm) compared to other browser-actions repos.
 
 ```bash
-yarn install          # install dependencies
-yarn lint             # lint with ESLint
-yarn lint:fix         # lint with auto-fix
-yarn test             # run all unit tests with Jest
-yarn build            # compile TypeScript → dist/index.js
-yarn package          # copy action.yml + README.md into dist/
+pnpm install --frozen-lockfile  # install dependencies
+pnpm lint             # lint with ESLint
+pnpm lint:fix         # lint with auto-fix
+pnpm test             # run all unit tests with Jest
+pnpm build            # compile TypeScript → dist/index.js
+pnpm package          # copy action.yml + README.md into dist/
 ```
 
 ## Project Layout
@@ -43,7 +43,7 @@ The `token` input is passed to the GitHub API to avoid rate limiting during rele
 
 Tests live in `__test__/` and use [Jest](https://jestjs.io/).
 
-- Run `yarn test` (not `pnpm test`).
+- Run `pnpm test`.
 - Tests mock GitHub API calls.
 
 ## Conventions
@@ -54,4 +54,4 @@ Tests live in `__test__/` and use [Jest](https://jestjs.io/).
 - **Never commit `dist/`** — it is built by CI and deployed to the `latest` branch on release.
 - The `action.yml` `main` field points to `index.js` inside `dist/`, not the TypeScript source.
 
-> When modernising this repo (switching to pnpm/Biome/Vitest), do so as a dedicated chore commit rather than mixing it with feature or fix changes.
+> When modernising this repo (switching to Biome/Vitest), do so as a dedicated chore commit rather than mixing it with feature or fix changes.

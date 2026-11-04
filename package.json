@@ -5,6 +5,8 @@
   "main": "dist/index.js",
   "dependencies": {
     "@actions/core": "^1.2.6",
+    "@actions/exec": "1.0.4",
+    "@actions/http-client": "1.0.9",
     "@actions/io": "^1.0.2",
     "@actions/tool-cache": "^1.6.1"
   },
@@ -47,5 +49,6 @@
   "bugs": {
     "url": "https://github.com/browser-actions/setup-geckodriver/issues"
   },
-  "homepage": "https://github.com/browser-actions/setup-geckodriver#readme"
+  "homepage": "https://github.com/browser-actions/setup-geckodriver#readme",
+  "packageManager": "pnpm@10.34.9"
 }
