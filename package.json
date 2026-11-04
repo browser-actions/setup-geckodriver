@@ -12,19 +12,15 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.6.4",
-    "@jest/globals": "^30.5.2",
-    "@types/jest": "^30.0.0",
     "@types/node": "^26.6.6",
     "@vercel/ncc": "^0.45.0",
-    "jest": "^30.5.2",
-    "jest-circus": "^30.5.2",
-    "ts-jest": "^29.4.15",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "vitest": "5.1.0"
   },
   "scripts": {
     "build": "ncc build src/index.ts",
-    "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js",
-    "test:watch": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js --watch",
+    "test": "vitest run",
+    "test:watch": "vitest --watch",
     "package": "cp action.yml README.md dist/",
     "lint": "biome ci .",
     "lint:fix": "biome check --write ."

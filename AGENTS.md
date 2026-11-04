@@ -8,13 +8,14 @@ This file provides guidance for AI coding agents working in this repository.
 
 ## Commands
 
-This repository uses Jest, Biome, and pnpm. Node.js ≥ 24 is required.
+This repository uses Vitest, Biome, and pnpm. Node.js ≥ 24 is required.
 
 ```bash
 pnpm install --frozen-lockfile  # install dependencies
 pnpm lint             # lint with Biome
 pnpm lint:fix         # lint with auto-fix
-pnpm test             # run all unit tests with Jest
+pnpm test             # run all unit tests with Vitest (single run)
+pnpm test:watch       # run tests in watch mode
 pnpm build            # compile TypeScript → dist/index.js
 pnpm package          # copy action.yml + README.md into dist/
 ```
@@ -28,10 +29,10 @@ src/
   Installer.ts        # Installer interface + base class
   InstallerFactory.ts # factory that returns the right installer for the current platform
 __test__/
-  InstallerFactory.test.ts  # Jest unit tests for installer factory
+  InstallerFactory.test.ts  # Vitest unit tests for installer factory
   platform.test.ts          # Node.js architecture mapping regression test
 action.yml            # action metadata: inputs, outputs
-jest.config.cjs        # Jest configuration
+vitest.config.ts        # Vitest configuration
 ```
 
 ## Architecture
@@ -42,7 +43,7 @@ The `token` input is passed to the GitHub API to avoid rate limiting during rele
 
 ## Testing
 
-Tests live in `__test__/` and use [Jest](https://jestjs.io/).
+Tests live in `__test__/` and use [Vitest](https://vitest.dev/).
 
 - Run `pnpm test`.
 - Tests mock GitHub API calls.

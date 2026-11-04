@@ -1,12 +1,6 @@
 {
   "files": {
-    "includes": [
-      "**/*.ts",
-      "**/*.cjs",
-      "**/*.json",
-      "!package.json",
-      "!!**/dist"
-    ]
+    "includes": ["**/*.ts", "**/*.json", "!package.json", "!!**/dist"]
   },
   "linter": {
     "enabled": true,

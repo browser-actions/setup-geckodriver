@@ -1,13 +1,13 @@
 import os from "node:os";
-import { jest } from "@jest/globals";
+import { afterEach, expect, test, vi } from "vitest";
 import { Arch, getArch } from "../src/platform";
 
 afterEach(() => {
-  jest.restoreAllMocks();
+  vi.restoreAllMocks();
 });
 
 test("maps Node.js ia32 architecture to i686", () => {
-  jest.spyOn(os, "arch").mockReturnValue("ia32");
+  vi.spyOn(os, "arch").mockReturnValue("ia32");
 
   expect(getArch()).toBe(Arch.I686);
 });
