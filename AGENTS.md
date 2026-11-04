@@ -8,11 +8,11 @@ This file provides guidance for AI coding agents working in this repository.
 
 ## Commands
 
-This repository uses Jest, ESLint/Prettier, and pnpm. Node.js ≥ 24 is required.
+This repository uses Jest, Biome, and pnpm. Node.js ≥ 24 is required.
 
 ```bash
 pnpm install --frozen-lockfile  # install dependencies
-pnpm lint             # lint with ESLint
+pnpm lint             # lint with Biome
 pnpm lint:fix         # lint with auto-fix
 pnpm test             # run all unit tests with Jest
 pnpm build            # compile TypeScript → dist/index.js
@@ -50,9 +50,9 @@ Tests live in `__test__/` and use [Jest](https://jestjs.io/).
 ## Conventions
 
 - **TypeScript** — all types must be explicit; avoid `any`.
-- **Linter:** ESLint with Prettier (not Biome — this repo predates the org-wide Biome adoption).
+- **Linter and formatter:** Biome — run `pnpm lint` before committing.
 - **Conventional Commits** are required for all commits (`feat:`, `fix:`, `chore:`, etc.).
 - **Never commit `dist/`** — it is built by CI and deployed to the `latest` branch on release.
 - The `action.yml` `main` field points to `index.js` inside `dist/`, not the TypeScript source.
 
-> When modernising this repo (switching to Biome/Vitest), do so as a dedicated chore commit rather than mixing it with feature or fix changes.
+> When switching test frameworks, do so as a dedicated chore commit rather than mixing it with feature or fix changes.

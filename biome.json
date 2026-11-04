@@ -1,0 +1,27 @@
+{
+  "files": {
+    "includes": [
+      "**/*.ts",
+      "**/*.cjs",
+      "**/*.json",
+      "!package.json",
+      "!!**/dist"
+    ]
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "preset": "recommended",
+      "complexity": {
+        "useLiteralKeys": "off"
+      },
+      "style": {
+        "noUselessElse": "off"
+      }
+    }
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space"
+  }
+}
