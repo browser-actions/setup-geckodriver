@@ -9,21 +9,18 @@ jobs:
         os: [ubuntu, macos, windows]
     runs-on: ${{ matrix.os }}-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-      - uses: actions/cache@v3
+      - uses: actions/checkout@v7.0.1
+      - uses: pnpm/action-setup@v6.1.1
+      - uses: actions/setup-node@v7.1.0
         with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+          node-version: '24'
+          cache: 'pnpm'
 
-      - run: yarn install --frozen-lockfile
-      - run: yarn test
-      - run: yarn build
-      - run: yarn package
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
+      - run: pnpm test
+      - run: pnpm build
+      - run: pnpm package
 
       # Test built action itself
       - uses: ./dist/
@@ -41,24 +38,20 @@ jobs:
     needs: [build]
     if: github.ref == 'refs/heads/master'
     steps:
-      - uses: actions/checkout@v3
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-      - uses: actions/cache@v3
+      - uses: actions/checkout@v7.0.1
+      - uses: pnpm/action-setup@v6.1.1
+      - uses: actions/setup-node@v7.1.0
         with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-      - uses: actions/checkout@v3
+          node-version: '24'
+          cache: 'pnpm'
+      - uses: actions/checkout@v7.0.1
         with:
           ref: 'latest'
           path: 'dist'
 
-      - run: yarn install --frozen-lockfile
-      - run: yarn build
-      - run: yarn package
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - run: pnpm package
       - name: Setup git
         run: |
           git config --global user.name "Shin'ya Ueoka"
@@ -89,12 +82,15 @@ jobs:
     runs-on: ${{ matrix.os }}-latest
     needs: [deploy]
     steps:
-      - uses: browser-actions/setup-geckodriver@latest
+      - uses: actions/checkout@v7.0.1
+        with:
+          ref: 'latest'
+      - uses: ./
         with:
           geckodriver-version: "0.35.0"
           token: ${{ secrets.GITHUB_TOKEN }}
       - run: geckodriver --version
-      - uses: browser-actions/setup-geckodriver@latest
+      - uses: ./
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
       - run: geckodriver --version

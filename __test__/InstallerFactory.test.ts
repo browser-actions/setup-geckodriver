@@ -1,10 +1,11 @@
-import { OS, Arch } from "../src/platform";
+import { describe, expect, test } from "vitest";
 import {
   LinuxInstaller,
   MacOSInstaller,
   WindowsInstaller,
 } from "../src/Installer";
 import InstallerFactory from "../src/InstallerFactory";
+import { Arch, OS } from "../src/platform";
 
 describe("InstallerFactory", () => {
   describe.each([

@@ -8,15 +8,16 @@ This file provides guidance for AI coding agents working in this repository.
 
 ## Commands
 
-> ⚠️ This repository uses an **older toolchain** (Jest + ESLint/Prettier + yarn) compared to other browser-actions repos.
+This repository uses Vitest, Biome, and pnpm. Node.js ≥ 24 is required.
 
 ```bash
-yarn install          # install dependencies
-yarn lint             # lint with ESLint
-yarn lint:fix         # lint with auto-fix
-yarn test             # run all unit tests with Jest
-yarn build            # compile TypeScript → dist/index.js
-yarn package          # copy action.yml + README.md into dist/
+pnpm install --frozen-lockfile  # install dependencies
+pnpm lint             # lint with Biome
+pnpm lint:fix         # lint with auto-fix
+pnpm test             # run all unit tests with Vitest (single run)
+pnpm test:watch       # run tests in watch mode
+pnpm build            # compile TypeScript → dist/index.js
+pnpm package          # copy action.yml + README.md into dist/
 ```
 
 ## Project Layout
@@ -28,9 +29,10 @@ src/
   Installer.ts        # Installer interface + base class
   InstallerFactory.ts # factory that returns the right installer for the current platform
 __test__/
-  InstallerFactory.test.ts  # Jest unit tests for installer factory
+  InstallerFactory.test.ts  # Vitest unit tests for installer factory
+  platform.test.ts          # Node.js architecture mapping regression test
 action.yml            # action metadata: inputs, outputs
-jest.config.js        # Jest configuration
+vitest.config.ts        # Vitest configuration
 ```
 
 ## Architecture
@@ -41,17 +43,23 @@ The `token` input is passed to the GitHub API to avoid rate limiting during rele
 
 ## Testing
 
-Tests live in `__test__/` and use [Jest](https://jestjs.io/).
+Tests live in `__test__/` and use [Vitest](https://vitest.dev/).
 
-- Run `yarn test` (not `pnpm test`).
+- Run `pnpm test`.
 - Tests mock GitHub API calls.
 
 ## Conventions
 
 - **TypeScript** — all types must be explicit; avoid `any`.
-- **Linter:** ESLint with Prettier (not Biome — this repo predates the org-wide Biome adoption).
+- **Linter and formatter:** Biome — run `pnpm lint` before committing.
 - **Conventional Commits** are required for all commits (`feat:`, `fix:`, `chore:`, etc.).
 - **Never commit `dist/`** — it is built by CI and deployed to the `latest` branch on release.
 - The `action.yml` `main` field points to `index.js` inside `dist/`, not the TypeScript source.
 
-> When modernising this repo (switching to pnpm/Biome/Vitest), do so as a dedicated chore commit rather than mixing it with feature or fix changes.
+> When switching test frameworks, do so as a dedicated chore commit rather than mixing it with feature or fix changes.
+
+## GitHub Actions lockfile
+
+Workflow dependencies are tracked in `.github/workflows/actions.lock`. After changing any workflow action reference, run `gh actions-lock` and commit the updated workflows and lockfile together. Install the CLI extension with `gh extension install github/gh-actions-lock --pin v0.4.1` if needed.
+
+Run `gh actions-lock --verify-local` for an offline coverage check and `gh actions-lock --verify` to verify upstream references.

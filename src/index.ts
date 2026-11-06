@@ -1,25 +1,29 @@
 import * as core from "@actions/core";
 import * as exec from "@actions/exec";
-import * as tc from "@actions/tool-cache";
 import * as httpm from "@actions/http-client";
-import { getPlatform, Platform } from "./platform";
+import * as tc from "@actions/tool-cache";
 import InstallerFactory from "./InstallerFactory";
+import { getPlatform, type Platform } from "./platform";
 
 type GitHubReleaseApiResponse = {
   tag_name: string;
 };
 
 const getLatestVersion = async (): Promise<string> => {
-  const apiURL = "https://api.github.com/repos/mozilla/geckodriver/releases/latest";
+  const apiURL =
+    "https://api.github.com/repos/mozilla/geckodriver/releases/latest";
   const http = new httpm.HttpClient("setup-geckodrive");
-  const additionalHeaders: Record<string, any> = {};
+  const additionalHeaders: Record<string, string> = {};
   if (core.getInput("token")) {
-    additionalHeaders["authorization"] = "Bearer " + core.getInput("token");
+    additionalHeaders["authorization"] = `Bearer ${core.getInput("token")}`;
   }
-  const resp = await http.getJson<GitHubReleaseApiResponse>(apiURL, additionalHeaders);
+  const resp = await http.getJson<GitHubReleaseApiResponse>(
+    apiURL,
+    additionalHeaders,
+  );
   if (resp.statusCode !== httpm.HttpCodes.OK) {
     throw new Error(
-      `Failed to get latest version: server returns ${resp.statusCode}`
+      `Failed to get latest version: server returns ${resp.statusCode}`,
     );
   }
   if (resp.result === null) {
@@ -30,7 +34,7 @@ const getLatestVersion = async (): Promise<string> => {
 
 const install = async (
   version: string,
-  platform: Platform
+  platform: Platform,
 ): Promise<string> => {
   const toolPath = tc.find("geckodriver", version);
   if (toolPath) {
@@ -69,7 +73,7 @@ const run = async (): Promise<void> => {
 
     await exec.exec("geckodriver", ["--version"]);
   } catch (error) {
-    core.setFailed(error.message);
+    core.setFailed(error instanceof Error ? error.message : String(error));
   }
 };
 
